@@ -1,0 +1,92 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config()
+import {router as userRoutes} from '../routes/userRoutes.js';
+import {router as commentRoutes} from '../routes/commentsRoutes.js';
+import kleur from 'kleur';
+import mongoose from "mongoose";
+mongoose.set('strictQuery', false);
+
+
+class Server {
+
+    constructor() {
+        this.app = express();
+        this.usuariosPath = '/api/usuarios';
+        this.comentariosPath = '/api/comentarios';
+
+        //Middlewares
+        this.middlewares();
+
+        this.conectarMongoose();
+
+        this.routes();
+        
+    }
+
+    conectarMongoose() {
+        //Para local o remoto (Atlas) comentar / descomentar en .env.
+        mongoose.connect(process.env.DB_URL, {
+            dbName: process.env.DB_DATABASE, //Especificar la base de datos
+            //maxPoolSize: 10, //Define el número máximo de conexiones en el pool. Por defecto es 100.
+        });
+        /*
+        Cuando llamas a mongoose.connect(), Mongoose crea una única conexión a MongoDB 
+        que actúa como un pool de conexiones interno. Este pool maneja múltiples 
+        operaciones simultáneamente sin necesidad de que crees nuevas conexiones manualmente.
+        */
+
+        this.db = mongoose.connection;
+        this.db.on('error', console.error.bind(console, 'Error de conexión a MongoDB:'));
+        this.db.once('open', () => {console.log(kleur.blue().bold('🔵 Conexión exitosa a MongoDB'));});
+    }
+
+    middlewares() {
+        this.app.use(cors());
+        this.app.use(express.json());
+    }
+
+    routes(){
+        this.app.use(this.usuariosPath , userRoutes);
+        this.app.use(this.comentariosPath , commentRoutes);
+    }
+
+    listen() {
+        this.app.listen(process.env.PORT, () => {
+            console.log(kleur.green().bold(`🟢 Servidor API escuchando en: ${process.env.PORT}`));
+        })
+        console.log(kleur.blue().bold(`🔵 Mongo: ${process.env.DB_PORT}  /  Datos de conexión: ${process.env.DB_DATABASE} ${process.env.DB_URL}. Conectando...`));
+    }
+}
+
+export {Server};
+
+
+
+/*
+
+Si queremos autenticar con Mongo:
+En mongosh:
+
+use admin
+db.createUser(
+  {
+    user: "<nombreUsuario>",
+    pwd: "<contraseña>",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+Y en NodeJS:
+const mongoose = require('mongoose');
+
+const url = "mongodb://<nombreUsuario>:<contraseña>@localhost:27017/ejemplo";
+
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+
+*/

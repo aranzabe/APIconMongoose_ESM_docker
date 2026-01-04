@@ -1,0 +1,245 @@
+MongoDB siempre es una excelente opción cuando se quieren realizar proyectos web apoyados en grandes conjuntos de datos sin estructurar. Sin estar atado a ningún esquema, el trabajo basado en documentos es el método ideal para gestionar un gran número de datos diferentes que deben ser almacenados y procesados rápidamente.
+
+Así, la implementación de MongoDB resulta apropiada para casi todo tipo de proyectos web que quieran caracterizarse por:
+- Escalabilidad: si tu proyecto web está en crecimiento, probablemente aumentará el número de visitas y solicitudes, lo que demanda una mayor capacidad de respuesta por parte de la base de datos.
+- Disponibilidad: una de las prioridades de todo proyecto web es la disponibilidad en todo momento, incluso en el caso de fallos en el servidor.
+- Flexibilidad: un proyecto debe poder ajustarse en cualquier momento de forma dinámica.
+- Pero, si por otro lado, la estructura de los datos no suele cambiar con normalidad y el crecimiento de los datos es “moderado”, puede que las tecnologías SQL sean la mejor opción.
+    
+Las SQL.
+- Mantenimiento difícil y costoso.
+- Escalabilidad horizontal limitada, inapropiado para proyectos que crezcan mucho (alta escalabilidad).
+- Poca flexibilidad a cambios.
+- Elección de proveedor.
+- Complejidad e instalación.
+
+
+Resumen de comandos.
+    
+show dbs;      --> Muestra las bases de datos disponibles.
+use basededatos;  --> Cambia la base de datos activa.
+show collections; --> muestra las colecciones de la bd.
+
+En ejemplo:
+use ejemplo;
+
+db.usuarios.insertOne({"id":1,"nombre":"JaimeR","edad":20})
+db.usuarios.insertOne({"id":2,"nombre":"Inés","edad":21})
+db.usuarios.insertMany([{"id":3,"nombre":"Francisco","edad":21},{"id":4,"nombre":"Badr","edad":22}])
+db.usuarios.find().prrety() --> Lo muestra un poco más organizado.
+db.usuarios.find({edad: 18 })
+db.usuarios.find({edad: {$gte: 18} })
+db.usuarios.find({edad: {$gt: 18} })
+db.usuarios.find({edad: {$gt: 18, $lt: 45} })
+db.usuarios.updateOne({ id: 2 }, { $set: { nombre: "DAW2", edad: 18 } })
+db.usuariosMongo.updateOne({id:1},{$set : {nombre: 'Elena', edad:22,roles: [ { id: 1, desc: 'Admin' },  { id: 2, desc: 'User' }]}})
+db.usuarios.find({ /* tu condición de búsqueda */ }, { nombre: 1, edad: 1 }) --> Con esto mostramos los campos que hayamos seleccionado con 1.
+db.usuarios.find({ /* tu condición de búsqueda */ }, { nombre: 0, edad: 0 }) --> Con esto excluimos esos campos de la consulta.
+db.usuarios.find({},{"edad":1,"nombre":1,"_id":0}) --> Se pueden combinar. Esto hace una selección de todos pero solo de los campos con 1, sin incluir la id del documento.
+db.usuarios.find().sort({id:1}) //Con -1 el orden es descendente.
+db.usuarios.find().sort({id:1}).limit(4)
+db.usuarios.find({},{"edad":1,"nombre":1,"_id":0}).sort({edad:-1}).limit(3) //Combinando un poco.
+db.usuarios.count()
+db.usuarios.insertOne({
+  id: 10,
+  nombre: "Grijander",
+  edad: 25,
+  direccion: {
+    calle: "123 Elm Street",
+    ciudad: "Ghotham",
+    codigoPostal: "12345"
+  }
+})  //Inserta un documento anidado.
+db.usuarios.find({},{nombre:1,edad:1,_id:0,direccion:1})  //Solo mostrará ese campo para el/los documentos que lo tengan.
+db.usuarios.find({ "direccion.ciudad": "Ghotham" })  //Consultas usando subcampos de documentos anidados.
+db.usuarios.find({ $or: [ { edad: { $gte: 18, $lte: 20 } }, { "direccion.ciudad": "Ghotham" }] }, { nombre: 1, edad: 1, _id: 0, direccion: 1 })  //Consultas con $or.
+
+Consultas con condiciones:
+db.usuarios.find({"edad":{"$gt":"20","$lt":"30"}});
+db.usuarios.find({"edad": "$not":{"$gt":"20","$lt":"30"}}});
+db.usuarios.find({"pais":{"$in": ["Chile", "Argentina"]}});
+
+
+
+Si tenemos la colección de comentarios:
+db.comments.insertOne({idU:2, comment: "Me está fallando algo, puedes venir?", likes: 3, "timestamp": { $currentDate: { lastModified: true } } })
+db.comments.insertOne({idU:2, comment: "Ya está, no vengas", likes: 2, "timestamp": { $currentDate: { lastModified: true } } })
+db.comments.insertOne({idU:3, comment: "Tenemos que hacer el cliente?", likes: 27, "timestamp": { $currentDate: { lastModified: true } } })
+db.comments.insertOne({idU:4, comment: "Pues el cliente tiene fallos de programación...", likes: 27, "timestamp": { $currentDate: { lastModified: true } } })
+
+Para obtener los comentarios de los clientes tenemos que hacer una función aggregate:
+db.usuarios.aggregate([
+  {
+    $lookup: {
+      from: "comments",
+      localField: "id",
+      foreignField: "idU",
+      as: "comentarios"
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      id: 1,
+      nombre: 1,
+      comentarios: "$comentarios"
+    }
+  }
+])
+
+
+
+Roles y roles asignados. Si tenemos estas colecciones:
+db.rolesasignados.find()
+[
+  { _id: ObjectId('65b6a4c23da5d020326198e0'), idU: 1, idR: 1 },
+  { _id: ObjectId('65b6a4c43da5d020326198e1'), idU: 1, idR: 2 },
+  { _id: ObjectId('65b6a4c83da5d020326198e2'), idU: 2, idR: 1 },
+  { _id: ObjectId('65b6a4ce3da5d020326198e3'), idU: 3, idR: 2 },
+  { _id: ObjectId('65b6a4d43da5d020326198e4'), idU: 4, idR: 3 },
+  { _id: ObjectId('65b6a4d73da5d020326198e5'), idU: 4, idR: 2 },
+  { _id: ObjectId('65b6a4d93da5d020326198e6'), idU: 4, idR: 1 },
+  { _id: ObjectId('65b6a4e33da5d020326198e7'), idU: 18, idR: 2 },
+  { _id: ObjectId('65b6a4e63da5d020326198e8'), idU: 19, idR: 2 },
+  { _id: ObjectId('65b6a4ec3da5d020326198e9'), idU: 9, idR: 2 },
+  { _id: ObjectId('65b6a4ef3da5d020326198ea'), idU: 10, idR: 2 }
+]
+
+db.roles.find()
+[
+  { _id: ObjectId('65b6a42c3da5d020326198dd'), id: 1, desc: 'Admin' },
+  { _id: ObjectId('65b6a4353da5d020326198de'), id: 2, desc: 'User' },
+  { _id: ObjectId('65b6a43f3da5d020326198df'), id: 3, desc: 'Guest' }
+]
+
+Una forma de "cruzar" documentos es usar una función aggregate como esta:
+db.usuarios.aggregate([
+  {
+    $lookup: {
+      from: "rolesasignados",
+      localField: "id",
+      foreignField: "idU",
+      as: "roles_asignados"
+    }
+  },
+  {
+    $unwind: "$roles_asignados"
+  },
+  {
+    $lookup: {
+      from: "roles",
+      localField: "roles_asignados.idR",
+      foreignField: "id",
+      as: "rol_info"
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      id: 1,
+      nombre: 1,
+      edad: 1,
+      "rol_info.desc": 1,
+      direccion: 1
+    }
+  }
+]).pretty()
+
+
+Tres Colecciones Separadas:
+
+    Normalización: Este enfoque sigue el principio de normalización de bases de datos, donde la información se divide en tablas para evitar la redundancia y mejorar la consistencia de los datos.
+    Flexibilidad: Permite cambios más fáciles en la información de roles y usuarios por separado.
+    Mantenimiento: Es más sencillo realizar cambios en las colecciones independientes sin afectar otras partes del sistema.
+
+Una Colección Única (Roles Incrustados o Array de Roles):
+    Desnormalización: Puede simplificar las consultas al tener toda la información relacionada en un solo documento.
+    Mejora en la Lectura: Si las consultas más comunes implican obtener la información completa de un usuario con sus roles, este enfoque podría mejorar el rendimiento al reducir la necesidad de unir varias colecciones.
+    Menos Operaciones de Unión: Evitar el uso de $lookup puede ser beneficioso si la mayoría de las consultas no necesitan información de roles por separado.
+    Consistencia Atomica: Al actualizar información en un solo documento, puedes garantizar que las operaciones sean atómicas y evitas problemas de consistencia entre colecciones.
+
+
+
+
+Para insertar en un solo documento todo:
+db.usuariosMongo.insertOne({id: 1, nombre: 'JaimeR', edad: 18, roles: [ { id: 1, desc: 'Admin' },  { id: 2, desc: 'User' }]})
+
+Para Compass:
+"nombre":"DAW2",
+    "edad":12,
+    "roles" : [
+      {"id":1, "desc": "Admin"}, { "id": 2, "desc": "User" }
+    ]
+
+
+
+
+
+
+
+Otros comandos:
+
+db.usuarios.remove({id:2})  --> Borra el documento 2. Se pueden poner condiciones como en los find.
+db.usuarios.update({id:2},{id:2,nombre:"Marina",edad:20}) --> Recordad que para modificar tenemos que incluir el nombre de todos los campos, además del que queremos modificar, para no perder nada.
+db.usuarios.drop();  --> Borra la colección usuarios de la BD ejemplo.
+
+use ejemplo;
+db.dropDatabase(); --> Borra la base de datos ejemplo.
+
+
+
+https://www.mongodbtutorial.org/mongodb-crud/mongodb-updateone/
+
+
+
+Exportar/Importar
+mongodump/mongorestore  --> Hace la copia de seguridad a la carpeta dump o de la carpeta dump desde donde se ejecute el comando.
+Si queremos personalizar lo que se importa o exporta:
+mongoexport
+mongodump -d dbETW -c myCollection
+mongorestore –host 127.51.12.1 –port 3017 /backup/mongodump-2013-01-01
+mongorestore -d ejemplo -directoryperdb dump/ejemplo --drop
+
+mongodump -h dbhost -d dbname -o dbdirectory
+
+
+
+
+
+Definición de cursores:
+var nuevoCursor=db.ejemplo.usuarios.find();
+nuevoCursor.forEach(printjson)
+
+
+
+En películas:
+use peliculas;
+db.pelis.insertOne({"titulo":"Dune","director":"Villeneuve"})
+db.pelis.insertMany([{"titulo":"BladeRunner","director":"Villeneuve"},{"titulo":"El señor de los anillos","director":"Peter Jackson"}])
+db.pelis.insertOne({"titulo":"Gattaca","director":"Andrew Niccol","edad":18})
+
+db.pelis.find({director: {$in:["Villeneuve"] }})
+db.pelis.find({director: {$in:["Villeneuve","Curtiz"] }})
+db.directores.find();  --> Muestra todos los documentos de la colección directores de la bd ejemplo.
+
+
+
+
+
+https://www.mongodb.com/docs/manual/installation/. --> Instalación
+https://www.mongodb.com/docs/mongodb-shell/install/ --> Instalar MongoDB Shell
+https://www.mongodb.com/docs/mongodb-shell/connect/#std-label-mdb-shell-connect --> Arrancar y conectar con una bd usando mongosh.
+https://www.mongodb.com/try/download/compass --> MongoDB Compass
+https://www.mongodb.com/docs/manual/crud/ --> Operaciones
+
+
+
+
+
+
+MacOS
+brew services start mongodb-community@8.0 --> Levanta el servicio.
+brew services stop mongodb-community@8.0. --> Para el servicio.
+mongosh
+Equivalente a:
+mongosh "mongodb://localhost:27017" 

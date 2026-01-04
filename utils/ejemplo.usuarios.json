@@ -1,0 +1,74 @@
+[{
+  "_id": {
+    "$oid": "67990bbace8908f6c453bef1"
+  },
+  "id": 2,
+  "nombre": "Carlos",
+  "edad": 21
+},
+{
+  "_id": {
+    "$oid": "67990bc5ce8908f6c453bef2"
+  },
+  "id": 3,
+  "nombre": "Jose",
+  "edad": 21
+},
+{
+  "_id": {
+    "$oid": "67990bc5ce8908f6c453bef3"
+  },
+  "id": 4,
+  "nombre": "Víctor",
+  "edad": 22
+},
+{
+  "_id": {
+    "$oid": "67990c5cce8908f6c453bef5"
+  },
+  "id": 10,
+  "nombre": "Jesús",
+  "edad": 18,
+  "roles": [
+    {
+      "id": 1,
+      "desc": "Admin"
+    },
+    {
+      "id": 2,
+      "desc": "User"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "679910ba380c3553d52c8163"
+  },
+  "nombre": "Juan",
+  "edad": 18,
+  "id": 1
+},
+{
+  "_id": {
+    "$oid": "679a62ea524c81c5ab6a4a2e"
+  },
+  "id": 9,
+  "nombre": "Marta",
+  "edad": 26
+},
+{
+  "_id": {
+    "$oid": "67a259a0345c9d52cf5413bf"
+  },
+  "id": 12,
+  "nombre": "Marco",
+  "edad": 18
+},
+{
+  "_id": {
+    "$oid": "67b4474f1f5a1b8d170a9b16"
+  },
+  "id": 18,
+  "nombre": "Cristina",
+  "edad": 12
+}]

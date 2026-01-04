@@ -1,0 +1,132 @@
+[{
+  "_id": {
+    "$oid": "6799f79afa1ebd2be2122caa"
+  },
+  "comment": "Me gusta mucho mucho Mongo",
+  "idU": 1,
+  "likes": 4,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6799f839fa1ebd2be2122cab"
+  },
+  "comment": "Bueno mucho... es una forma de hablar",
+  "idU": 1,
+  "likes": 3,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6799f84bfa1ebd2be2122cac"
+  },
+  "comment": "A mí no tanto.",
+  "idU": 2,
+  "likes": 2,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6799f85efa1ebd2be2122cad"
+  },
+  "comment": "Echo de menos PhpMyAdmin",
+  "idU": 3,
+  "likes": 1,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6799fa06fa1ebd2be2122cc6"
+  },
+  "comment": "Bueno, quizá un poco.",
+  "idU": 2,
+  "likes": 3,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6799fa26fa1ebd2be2122cc7"
+  },
+  "comment": "Que no, que no me gusta, era broma.",
+  "idU": 2,
+  "likes": 2,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6799fa44fa1ebd2be2122cc8"
+  },
+  "comment": "A mí, si es back... lo que sea.",
+  "idU": 4,
+  "likes": 8,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "679a6469524c81c5ab6a4a4d"
+  },
+  "idU": 10,
+  "comment": "... tardecitas de paseo.",
+  "likes": 0,
+  "timestamp": {
+    "$date": "2025-01-29T17:24:57.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "679a655a524c81c5ab6a4a55"
+  },
+  "idU": 10,
+  "comment": "Mañanitas de niebla...",
+  "likes": 0,
+  "timestamp": {
+    "$date": "2025-01-29T17:28:58.966Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a25cadb735323fea2dbdc9"
+  },
+  "idU": 2,
+  "comment": "Comentario añadido",
+  "likes": 0,
+  "timestamp": {
+    "$date": "2025-02-04T18:30:05.405Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67aa0e9945c28493165e04e1"
+  },
+  "idU": 2,
+  "comment": "Comentario añadido con JWT",
+  "likes": 0,
+  "timestamp": {
+    "$date": "2025-02-10T14:35:05.974Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "695aa5345922221b0c878f4f"
+  },
+  "idU": 9,
+  "comment": "...tardecitas de Mongo",
+  "likes": 0,
+  "timestamp": {
+    "$date": "2026-01-04T17:36:52.718Z"
+  }
+}]

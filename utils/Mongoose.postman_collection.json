@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "5097d289-54cb-438d-a778-ad694584acd2",
+		"name": "Mongoose",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14427278"
+	},
+	"item": [
+		{
+			"name": "api/usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/usuarios/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/usuarios",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":45,\n    \"nombre\": \"OTRO de DAW2\",\n    \"edad\": 26\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/usuarios/id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 1,\n        \"nombre\": \"Diego\",\n        \"edad\": 18,\n        \"roles\": [\n            {\n                \"id\": 1,\n                \"desc\": \"Admin\"\n            },\n            {\n                \"id\": 2,\n                \"desc\": \"User\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/usuarios/id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"67990c5cce8908f6c453bef5\",\n        \"id\": 102,\n        \"nombre\": \"Cynthia\",\n        \"edad\": 18,\n        \"roles\": [\n            {\n                \"id\": 1,\n                \"desc\": \"Admin\"\n            },\n            {\n                \"id\": 2,\n                \"desc\": \"User\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/usuarios/45",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"usuarios",
+						"45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/comentarios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"67990c5cce8908f6c453bef5\",\n        \"id\": 102,\n        \"nombre\": \"Cynthia\",\n        \"edad\": 18,\n        \"roles\": [\n            {\n                \"id\": 1,\n                \"desc\": \"Admin\"\n            },\n            {\n                \"id\": 2,\n                \"desc\": \"User\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/comentarios",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"comentarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/comentarios",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"idU\":9,\n        \"comment\": \"...tardecitas de Mongo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/comentarios",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"comentarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/comentarios/asignados",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"67990c5cce8908f6c453bef5\",\n        \"id\": 102,\n        \"nombre\": \"Cynthia\",\n        \"edad\": 18,\n        \"roles\": [\n            {\n                \"id\": 1,\n                \"desc\": \"Admin\"\n            },\n            {\n                \"id\": 2,\n                \"desc\": \"User\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/comentarios/asignados",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"comentarios",
+						"asignados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/comentarios/asignados/id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"67990c5cce8908f6c453bef5\",\n        \"id\": 102,\n        \"nombre\": \"Cynthia\",\n        \"edad\": 18,\n        \"roles\": [\n            {\n                \"id\": 1,\n                \"desc\": \"Admin\"\n            },\n            {\n                \"id\": 2,\n                \"desc\": \"User\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/api/comentarios/asignados/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"comentarios",
+						"asignados",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
